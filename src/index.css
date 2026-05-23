@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+:root {
+    --primary-color: #000000;
+    --secondary-color: #121212;
+    --primary-color-white: #ffffff;
+    --primary-color-darkwhite: #dedede;
+}
+
+@theme {
+    --color-black: var(--primary-color);
+    --color-secondary: var(--secondary-color);
+    --color-white: var(--primary-color-white);
+    --color-darkwhite: var(--primary-color-darkwhite);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+@layer components {
+    #clock {
+        @apply h-dvh w-full relative flex flex-col items-center justify-between bg-[var(--primary-color)];
+
+        .clock_container {
+            @apply h-[calc(100%-75px)] w-full  flex items-center justify-center;
+
+            .clock_box {
+                @apply w-[min(720px,88vw)] relative flex flex-col items-center gap-4;
+            }
+        }
+    }
+
+    .num_box {
+        @apply relative h-72 w-full overflow-hidden rounded-lg bg-[var(--secondary-color)] border border-[var(--secondary-color)] flex items-center justify-center;
+        h1{
+            @apply text-8xl font-bold text-[var(--primary-color-white)];
+        }
+    }
+}
+
+@keyframes flip-top {
+    from {
+        transform: rotateX(0deg);
+    }
+
+    to {
+        transform: rotateX(-90deg);
+    }
+}
+
+@keyframes flip-bottom {
+    from {
+        transform: rotateX(90deg);
+    }
+
+    to {
+        transform: rotateX(0deg);
+    }
+}
