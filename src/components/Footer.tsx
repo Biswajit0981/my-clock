@@ -3,23 +3,30 @@ import {IoIosColorPalette} from "react-icons/io";
 import {BsFullscreen} from "react-icons/bs";
 import {FaStopwatch20} from "react-icons/fa6";
 import {useClockContext} from "../context/ClockProvider.ts";
+import TimerPop from "./TimerPop.tsx";
+import {useState} from "react";
 
 const Footer = () => {
-    const {state, dispatch} = useClockContext();
+    const  {state, dispatch} = useClockContext();
+
+     const [toggle, setToggle] = useState(false);
 
     return (
         <div className="clock_menu">
+            {
+                toggle && <TimerPop/>
+            }
             <button className="hours_btn" onClick={() => dispatch({type: "hour"})}>{state.hour ? "24h" : "12h"}</button>
             <button className="style_btn">
                 <IoIosColorPalette className="text-white text-4xl"/>
             </button>
-            <button className="style_btn ">
+            <button className="style_btn " onClick={() => setToggle((prev) => !prev)}>
                 <LuClock5 className="text-white text-4xl"/>
             </button>
             <button className="style_btn" onClick={() => dispatch({type: "stopwatch"})}>
                 <FaStopwatch20 className="text-white text-4xl"/>
             </button>
-            <button className="style_btn ">
+            <button className="style_btn " onClick={() => document.documentElement.requestFullscreen()}>
                 <BsFullscreen className="text-white text-4xl"/>
             </button>
         </div>
