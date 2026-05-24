@@ -1,9 +1,9 @@
-
 import {LuClock5} from "react-icons/lu";
 import {IoIosColorPalette} from "react-icons/io";
 import {BsFullscreen} from "react-icons/bs";
-import { FaStopwatch20 } from "react-icons/fa6";
+import {FaStopwatch20} from "react-icons/fa6";
 import {useClockContext} from "../context/ClockProvider.ts";
+
 const Footer = () => {
     const {state, dispatch} = useClockContext();
 
@@ -16,7 +16,7 @@ const Footer = () => {
             <button className="style_btn ">
                 <LuClock5 className="text-white text-4xl"/>
             </button>
-            <button className="style_btn ">
+            <button className="style_btn" onClick={() => dispatch({type: "stopwatch"})}>
                 <FaStopwatch20 className="text-white text-4xl"/>
             </button>
             <button className="style_btn ">
