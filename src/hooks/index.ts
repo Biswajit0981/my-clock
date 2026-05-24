@@ -170,6 +170,34 @@ interface IUseTimerReturn {
     isRunning: boolean;
 }
 
+function playTimerCompleteSound() {
+    try {
+        const audioContext = new AudioContext();
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        const now = audioContext.currentTime;
+
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(880, now);
+        oscillator.frequency.setValueAtTime(1175, now + 0.16);
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.35, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+
+        oscillator.start(now);
+        oscillator.stop(now + 0.58);
+        oscillator.addEventListener("ended", () => {
+            void audioContext.close();
+        });
+    } catch {
+        // Browsers can block audio if the timer was never started from a user gesture.
+    }
+}
+
 export function useTimer(): IUseTimerReturn {
     const {state, dispatch} = useClockContext();
     const [time, setTime] =
@@ -190,12 +218,17 @@ export function useTimer(): IUseTimerReturn {
 
                     setTime((prev) => {
 
-                        if (prev <= 1) {
+                        if (prev <= 0) {
+                            return 0;
+                        }
+
+                        if (prev === 1) {
                             clearInterval(
                                 intervalRef.current!
                             );
 
                             setIsRunning(false);
+                            playTimerCompleteSound();
 
                             return 0;
                         }
