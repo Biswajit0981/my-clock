@@ -16,48 +16,55 @@
 
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
+html {
+    font-size: 16px;
+}
 
 @layer components {
     #clock {
-        @apply h-dvh w-full relative flex flex-col items-center justify-between bg-[var(--primary-color)];
+        @apply h-dvh w-full relative grid grid-cols-5 grid-rows-8 gap-2 bg-[var(--primary-color)];
 
         .clock_container {
-            @apply h-[calc(100%-75px)] w-full  flex items-center justify-center;
+            @apply col-span-5 row-span-7  flex items-center  justify-center py-3  ;
 
-            .clock_box {
-                @apply w-[min(720px,88vw)] relative flex flex-col items-center gap-4;
+        }
+
+        .clock_footer {
+            @apply col-span-5 row-start-8 flex  items-center  justify-end;
+        }
+
+        .clock_menu {
+            @apply relative h-full flex items-center px-5 gap-8;
+
+            .hours_btn {
+                @apply text-3xl font-bold text-white cursor-pointer;
+            }
+
+            .style_btn {
+                @apply relative p-2 cursor-pointer;
             }
         }
+
     }
 
-    .num_box {
-        @apply relative h-72 w-full overflow-hidden rounded-lg bg-[var(--secondary-color)] border border-[var(--secondary-color)] flex items-center justify-center;
-        h1{
-            @apply text-8xl font-bold text-[var(--primary-color-white)];
+    .clock_base {
+        @apply h-full w-full relative  flex flex-col  items-center justify-center gap-8;
+
+        .clock_mode {
+            @apply text-2xl font-bold text-[var(--color-darkwhite)]  top-10 left-10 -translate-x-1/2 -translate-y-1/2 absolute;
+        }
+    }
+
+    .clock_box {
+        @apply h-80 w-2/3 flex items-center justify-center relative bg-[var(--secondary-color)] rounded-lg;
+
+        .num_box {
+            @apply text-8xl font-bold text-white;
         }
     }
 }
 
-@keyframes flip-top {
-    from {
-        transform: rotateX(0deg);
-    }
 
-    to {
-        transform: rotateX(-90deg);
-    }
-}
 
-@keyframes flip-bottom {
-    from {
-        transform: rotateX(90deg);
-    }
-
-    to {
-        transform: rotateX(0deg);
-    }
-}
