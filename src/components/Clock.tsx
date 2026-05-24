@@ -4,7 +4,9 @@ import ClockBox from "./ClockBox.tsx";
 const Clock = () => {
     const [clock] = useClock();
     if (!clock) {
-        return null;
+        return <div className="clock_container">
+            <h1 className="text-4xl font-blod text-white">Your clock is cooking....</h1>
+        </div>;
     }
     return (
         <div className="clock_base">
